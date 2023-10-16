@@ -4,15 +4,45 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    static private GameManager instance; //Singleton Object
+    static public GameManager Instance
     {
-        
+        get
+        {
+            if (instance == null)
+            {
+                Debug.LogError("There is no GameManager instance in the scene.");
+            }
+            return instance;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private int currentScore = 0;
+    public int CurrentScore
     {
-        
+        get
+        {
+            return currentScore;
+        }
+    }
+
+    [Range(0, 100)] [SerializeField] private int points = 1; //Points
+
+    void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(gameObject); //If there is already a UIManager in the scene
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+
+    public void Score()
+    {
+        currentScore += points;
     }
 }
