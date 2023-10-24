@@ -4,15 +4,35 @@ using UnityEngine;
 
 public class CoinPickup : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    private GameManager gameManager; // Game Manager
+
+    void Awake()
+    {
+        gameManager = (GameManager) FindObjectOfType(typeof(GameManager)); // set game manager
+        if(!gameManager)
+        {
+            Debug.LogError("There is no game manager in the scene");
+        }
+    }
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("colliding");
+        if(collision.gameObject.tag == "Player"){
+            Debug.Log("Hits");
+            gameManager.Score();
+            Destroy(gameObject);
+        }
     }
 }
