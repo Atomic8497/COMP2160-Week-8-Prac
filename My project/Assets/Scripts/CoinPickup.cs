@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinPickup : MonoBehaviour
+public class CoinPickup : MonoBehaviour //Coin prefab outdated causing the objects in the scene not to work
 {
-
     private GameManager gameManager; // Game Manager
 
     void Awake()
@@ -16,21 +15,11 @@ public class CoinPickup : MonoBehaviour
         }
     }
 
-    void Start()
+    void OnTriggerEnter(Collider collision)
     {
-        
-    }
-
-    void Update()
-    {
-
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log("colliding");
-        if(collision.gameObject.tag == "Player"){
-            Debug.Log("Hits");
+        if(collision.gameObject.tag == "Player")
+        {
+            Debug.Log("Hit");
             gameManager.Score();
             Destroy(gameObject);
         }

@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
 
-    [SerializeField] private int moveSpeed = 1;
+    [SerializeField] private int moveSpeed = 10;
     private PlayerActions movement;
     private InputAction direction;
     private Vector3 position;
@@ -15,11 +15,6 @@ public class PlayerMovement : MonoBehaviour
     {
         movement = new PlayerActions();
         direction = movement.PlayerMovement.Direction;
-    }
-
-    void Start()
-    {
-        
     }
 
     void OnEnable()
@@ -32,11 +27,12 @@ public class PlayerMovement : MonoBehaviour
         direction.Disable();
     }
 
-    void FixedUpdate()
+    void FixedUpdate() //Player was not moving //Not reading input (fixed by adding control scheme)
     {
         position = direction.ReadValue<Vector2>();
         position.z = position.y;
         position.y = 0;
+        
         transform.Translate(position * Time.deltaTime * moveSpeed, Space.Self);
     }
 }
